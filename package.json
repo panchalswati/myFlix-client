@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/panchalswati/myFlix-client#readme",
   "dependencies": {
+    "axios": "^0.27.2",
     "lodash": "^4.17.21",
     "react": "^18.1.0",
     "react-dom": "^18.1.0"
