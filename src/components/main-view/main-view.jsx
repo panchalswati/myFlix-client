@@ -1,23 +1,18 @@
 import React from 'react';
 import axios from 'axios';
+import Col from 'react-bootstrap/Col';
+import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+import { RegistrationView } from '../registration-view/registration-view';
+
 export class MainView extends React.Component {
     constructor() {
         super();
         this.state = {
-            movies: [
-                {
-                    _id: 1, Title: 'The Shawshank Redemption', Description: 'Two imprisoned men bond over a number of years,finding solace and eventual redemption throughacts of common decency.', ImagePath: 'https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UX67_CR0,0,67,98_AL_.jpg',
-
-                }, {
-                    _id: 2, Title: 'Pulp Fiction', Description: 'The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.', ImagePath: 'https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2ItYzViMjE3YzI5MjljXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UY98_CR0,0,67,98_AL_.jpg',
-                },
-                {
-                    _id: 3, Title: '12 Angry Men', Description: 'The jury in a New York City murder trial is frustrated by a single member whose skeptical caution forces them to more carefully consider the evidence before jumping to a hasty verdict.', ImagePath: 'https://m.media-amazon.com/images/M/MV5BMWU4N2FjNzYtNTVkNC00NzQ0LTg0MjAtYTJlMjFhNGUxZDFmXkEyXkFqcGdeQXVyNjc1NTYyMjg@._V1_UX67_CR0,0,67,98_AL_.jpg',
-                },
-            ],
-            selectedMovie: null
+            movies: [],
+            selectedMovie: null,
+            user: null
         }
     }
     componentDidMount() {
@@ -36,19 +31,41 @@ export class MainView extends React.Component {
             selectedMovie: newSelectedMovie
         });
     }
+
+    onLoggedIn(user) {
+        this.setState({
+            user
+        });
+    }
+
+    onRegisterIn(user) {
+        this.setState({
+            user
+        });
+    }
+
     render() {
-        const { movies, selectedMovie } = this.state;
+        const { movies, selectedMovie, user } = this.state;
+
+        if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+        if (user) { return <RegistrationView onRegisterIn={user => this.onRegisterIn(user)} /> }
 
         if (movies.length === 0) return <div className="main-view" />;
         return (
-            <div className="main-view">
+            <Row className="main-view justify-content-md-center">
                 {selectedMovie
-                    ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
+                    ? (
+                        <Col md={8}>
+                            <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
+                        </Col>
+                    )
                     : movies.map(movie => (
-                        <MovieCard key={movie._id} movieData={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie) }} />
+                        <Col md={3}>
+                            <MovieCard key={movie._id} movie={movie} onMovieClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
+                        </Col>
                     ))
                 }
-            </div>
+            </Row>
         );
     }
 }
