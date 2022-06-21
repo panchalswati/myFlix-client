@@ -1,5 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import './movie-view.scss';
+
 export class MovieView extends React.Component {
     keypressCallback(event) {
         console.log(event.key);
@@ -8,6 +12,7 @@ export class MovieView extends React.Component {
     componentDidMount() {
         document.addEventListener('keypress', this.keypressCallback);
     }
+
     componentWillUnmount() {
         document.removeEventListener('keypress', this.keypressCallback);
     }
@@ -28,7 +33,13 @@ export class MovieView extends React.Component {
                     <span className="label">Description: </span>
                     <span className="value">{movie.Description}</span>
                 </div>
-                <button onClick={() => { onBackClick(null); }}>Back</button>
+                <Link to={`/directors/${movies.Director.name}`}>
+                    <Button className="d=block mt-3" variant="info">Director</Button>
+                </Link>
+                <Link to={`/genre/${movies.Genre.Name}`}>
+                    <Button className="d-block mt-3" variant="info">Genre</Button>
+                </Link>
+                <Button onClick={() => { onBackClick(null); }}>Back</Button>
             </div>
         );
     }
