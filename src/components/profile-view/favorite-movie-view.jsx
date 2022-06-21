@@ -16,12 +16,12 @@ export function FavouriteMoviesView(props) {
     })
 
     const handleMovieDelete = (movieId) => {
-        axios.delete(`https://dashboard.heroku.com/apps/myflix-movies-heroku/users/${currentUser}/movies/${movie._Id}`, {
+        axios.delete(`https://dashboard.heroku.com/apps/myflix-movies-heroku/users/${currentUser}/movies/${movies._Id}`, {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(() => {
                 alert(`The movie was successfully deleted.`)
-                window.open('/users/:username', '_self');
+                window.open('/users/:name', '_self');
             }).
             catch(error => console.error(error))
     }
