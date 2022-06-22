@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navbar, Container, Nav, Button } from 'react-bootstrap';
-export function Menubar({ user }) {
+
+export function Navbar({ users }) {
     const onLoggedOut = () => {
         localStorage.clear();
         window.open("/", "_self");
@@ -23,18 +24,19 @@ export function Menubar({ user }) {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="m1-auto">
-                        {isAuth() && (
-                            <Nav.Link href={"/users/${user}"}>{user}</Nav.Link>
-                        )}
-                        {isAuth() && (
-                            <Button variant="link" onClick={() => { this.onLoggedOut() }}>Logout</Button>
-                        )}
-                        {isAuth() && (
-                            <Nav.Link href="/">Sign-In</Nav.Link>
-                        )}
-                        {!isAuth() && (
-                            <Nav.Link href="/register">Sign-Up</Nav.Link>
-                        )}
+                        {isAuth() &&
+                            <Fragment>
+                                <Nav.Link href="/">Home</Nav.Link>
+                                <Nav.Link href={"/users/${users}"}>{users}</Nav.Link>
+                                <Nav.Link onClick={onLoggedOut}>Sign-out</Nav.Link>
+                            </Fragment>
+                        }
+                        {isAuth() &&
+                            <Fragment>
+                                <Nav.Link href="/login">Sign-In</Nav.Link>
+                                <Nav.Link href="/register">Sign-Up</Nav.Link>
+                            </Fragment>
+                        }
                     </Nav>
                 </Navbar.Collapse>
             </Container>
