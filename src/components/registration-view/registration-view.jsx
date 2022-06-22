@@ -6,7 +6,6 @@ export function RegistrationView(props) {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const [Birthdate, setBirthdate] = useState('');
     const [values, setValues] = useState({
         nameerr: '',
         name: '',
@@ -17,20 +16,26 @@ export function RegistrationView(props) {
     const validate = () => {
         let isReq = true;
         if (!name) {
-            setNameErr('Username Required');
+            setValues({ ...values, nameErr: 'Username required' });
             isReq = false;
         } else if (name.length < 2) {
-            setNameErr('Username must be 2 characters long');
+            setValues({ ...values, nameErr: 'Username must be at least 2 characters long' });
             isReq = false;
         }
         if (!password) {
-            setPasswordErr('Password Required');
+            setValues({ ...values, passwordErr: 'Password required' });
             isReq = false;
         } else if (password.length < 6) {
-            setPassword('Password must be 6 characters long');
+            setValues({ ...values, passwordErr: 'Password must be at least 6 characters long' });
             isReq = false;
         }
-
+        if (!email) {
+            setValues({ ...values, emailErr: 'Email required' });
+            isReq = false;
+        } else if (email.indexOf('@') === -1) {
+            setValues({ ...values, emailErr: 'Enter valid email' });
+            isReq = false;
+        }
         return isReq;
     }
 
@@ -38,11 +43,11 @@ export function RegistrationView(props) {
         e.preventDefault();
         const isReq = validate();
         if (isReq) {
-            axios.post('https://dashboard.heroku.com/apps/myflix-movies-heroku/users', {
+            axios.post('https://myflix-movies-heroku.herokuapp.com/users', {
                 name: name,
                 Password: password,
                 Email: email,
-                Birthday: birthday
+                Birthdate: birthdate
             })
                 .then(response => {
                     const data = response.data;
@@ -56,7 +61,7 @@ export function RegistrationView(props) {
     };
 
     return (
-        <>
+        <Container id="registeration-form">
             <Row className="justify-content-center my-5">
                 <Col md={3}>
                     <Form>
@@ -65,8 +70,8 @@ export function RegistrationView(props) {
                             <Form.Control
                                 type="text"
                                 placeholder="Username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
                                 required
                             />
                         </Form.Group>
@@ -92,20 +97,20 @@ export function RegistrationView(props) {
                             />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Birthday</Form.Label>
+                            <Form.Label>Birthdate</Form.Label>
                             <Form.Control
                                 type="date"
                                 placeholder="dd-mm-yyyy"
-                                onChange={(e) => setBirthday(e.target.value)}
-                                value={birthday}
+                                onChange={(e) => setBirthdate(e.target.value)}
+                                value={Birthdate}
                             />
                         </Form.Group>
                         <br></br>
-                        <Button variant="primary" type="submit" onClick={handleRegister}>Register</Button>
+                        <Button variant="primary" type="submit" onClick={handleRegisterSubmit}>Register</Button>
                     </Form>
                 </Col>
             </Row>
-        </>
+        </Container>
     )
 }
 
@@ -117,6 +122,4 @@ RegistrationView.propTypes = {
         Birthdate: PropTypes.number.isRequired,
     }),
     onRegisterIn: PropTypes.func.isRequired,
-};
-
-export default RegistrationView;
+}
