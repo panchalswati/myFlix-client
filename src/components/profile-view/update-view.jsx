@@ -6,7 +6,7 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import './profile-view.scss';
 
 export function UpdateView(props) {
-    const { user } = props;
+    const { users } = props;
     const [name, setname] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -21,7 +21,7 @@ export function UpdateView(props) {
     const validate = () => {
         let isReq = true;
         if (!name) {
-            setValues({ ...values, usernameErr: 'Username required' });
+            setValues({ ...values, nameErr: 'Username required' });
             isReq = false;
         } else if (name.length < 2) {
             setValues({ ...values, nameErr: 'Username must be at least 2 characters long' });
@@ -49,11 +49,11 @@ export function UpdateView(props) {
         const isReq = validate();
         if (isReq) {
             const token = localStorage.getItem('token');
-            axios.put(`https://dashboard.heroku.com/apps/myflix-movies-heroku/${user.name}`, {
-                Username: username,
+            axios.put(`https://myflix-movies-heroku.herokuapp.com/users/${users.name}`, {
+                Name: name,
                 Password: password,
                 Email: email,
-                Birthday: birthdate
+                Birthdate: birthdate
             },
                 {
                     headers: { Authorization: `Bearer ${token}` }
@@ -61,7 +61,7 @@ export function UpdateView(props) {
                 .then(response => {
                     console.log(response.data);
                     alert('Profile was successfully updated.');
-                    window.open('/users/:username', '_self');
+                    window.open('/users/:name', '_self');
                 })
                 .catch(error => {
                     console.error(error);
@@ -77,8 +77,8 @@ export function UpdateView(props) {
                 <Col sm="10" md="8" lg="6">
                     <Form>
                         <Form.Group controlId="formname">
-                            <Form.Label>Username:</Form.Label>
-                            <Form.Control type="text" value={Username} onChange={e => setname(e.target.value)} placeholder="Username" required />
+                            <Form.Label>Name:</Form.Label>
+                            <Form.Control type="text" value={name} onChange={e => setname(e.target.value)} placeholder="Username" required />
                             {/* display validation error */}
                             {values.nameErr && <p>{values.nameErr}</p>}
                         </Form.Group>
