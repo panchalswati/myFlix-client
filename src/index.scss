@@ -1,5 +1,11 @@
 $color: steelblue;
 
+body {
+    background-color: dimgray;
+    font-family: sans-serif;
+    line-height: 1.6;
+}
+
 .my-flix {
     color: $color;
 }
