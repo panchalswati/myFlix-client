@@ -2,20 +2,35 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import './movie-view.scss';
 import { Container, Row, Col } from 'react-bootstrap';
+import './movie-view.scss';
 
 export class MovieView extends React.Component {
-    keypressCallback(event) {
-        console.log(event.key);
+    constructor(props) {
+        super(props);
+
+        this.addFavorite = this.addFavorite.bind(this);
     }
 
-    componentDidMount() {
-        document.addEventListener('keypress', this.keypressCallback);
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('keypress', this.keypressCallback);
+    addFavorite(movie) {
+        console.log(movie);
+        const userId = localStorage.getItem("user_id");
+        const token = localStorage.getItem("token");
+        axios
+            .post(
+                `https://myflix-movies-heroku.herokuapp.com//${userId}/watchlist/${movies._id}`,
+                {},
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            )
+            .then((response) => {
+                alert("Added to watchlist");
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     render() {
