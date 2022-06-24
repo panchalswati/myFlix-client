@@ -2,24 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import './movie-card.scss';
 import { Link } from "react-router-dom";
+import './movie-card.scss';
 
 export class MovieCard extends React.Component {
-    addToFavoriteList(moviesId) {
-        const currentUser = localStorage.getItem('users');
-        const token = localStorage.getItem('token');
-        axios.put(`https://movie-api-93167.herokuapp.com/users/${currentUser}/movies/${moviesId}`,
-            {},
-            {
-                headers: { Authorization: `Bearer ${token}` }
-            })
-            .then((response) => {
-                console.log(response.data)
-                alert(`The movie was successfully add to your list.`)
-            }).
-            catch(error => console.error(error))
-    }
+
     render() {
         const { movies } = this.props;
 
