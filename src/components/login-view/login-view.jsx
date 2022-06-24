@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
-import axios from 'axios';
-import './login-view.scss';
 import Container from 'react-bootstrap/Container';
+import './login-view.scss';
 
 export function LoginView(props) {
     const [name, setName] = useState('');
@@ -70,6 +70,7 @@ export function LoginView(props) {
                                 <Button variant="primary" type="submit" onClick={handleSubmit}>
                                     Login         </Button>
                             </Col></Row>
+                        <p>Don't have an account yet?<a href="/register">Register here</a></p>
                     </Form>
                 </Col></Row>
         </Container>
