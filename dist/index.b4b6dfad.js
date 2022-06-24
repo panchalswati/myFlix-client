@@ -27026,12 +27026,12 @@ class MainView extends (0, _reactDefault.default).Component {
             users: authData.users.name
         });
         localStorage.setItems("token", authData.token);
-        localStorage.setItem("user", authData.user.name);
+        localStorage.setItem("users", authData.users.name);
         this.getMovies(authData.token);
     }
     onLoggedOut() {
         localStorage.removeItem("token");
-        localStorage.removeItem("user");
+        localStorage.removeItem("users");
         this.setState({
             users: null
         });
@@ -27135,7 +27135,7 @@ class MainView extends (0, _reactDefault.default).Component {
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
-                            path: "/genre/:name",
+                            path: "movies/genre/:name",
                             render: ({ match , history  })=>{
                                 if (!users1) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
@@ -27159,7 +27159,7 @@ class MainView extends (0, _reactDefault.default).Component {
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
-                            path: "/director/:name",
+                            path: "movies/director/:name",
                             render: ({ match , history  })=>{
                                 if (!users1) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
