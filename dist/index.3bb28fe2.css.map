@@ -1,0 +1,1 @@
+{"mappings":"AAAA;;;;ACEA","sources":["src/components/registration-view/registration-view.scss","src/index.scss"],"sourcesContent":["input {\r\n    color: black;\r\n}","$color: steelblue;\r\n\r\n.my-flix {\r\n    color: $color;\r\n}"],"names":[],"version":3,"file":"index.3bb28fe2.css.map","sourceRoot":"/__parcel_source_root/"}
