@@ -20,13 +20,15 @@
   "homepage": "https://github.com/panchalswati/myFlix-client#readme",
   "dependencies": {
     "axios": "^0.27.2",
-    "lodash": "^4.17.21",
+    "bootstrap": "^5.1.3",
     "prop-types": "^15.8.1",
     "react": "^18.1.0",
     "react-bootstrap": "^2.4.0",
     "react-dom": "^18.1.0",
+    "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
-    "redux": "^4.2.0"
+    "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.9"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.6.0",
