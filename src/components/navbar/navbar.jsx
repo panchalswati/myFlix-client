@@ -20,21 +20,21 @@ export function Navbar({ users }) {
     return (
         <Navbar className="main-nav" sticky="top" bg="dark" expand="lg" variant="dark">
             <Container>
-                <Navbar.Brand className="navbar-logo" href="/">myFlixCinema</Navbar.Brand>
+                <Navbar.Brand className="navbar-logo" href="/" font-color="black" >myFlix-App</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="m1-auto">
                         {isAuth() &&
                             <Fragment>
-                                <Nav.Link href="/">Home</Nav.Link>
-                                <Nav.Link href={"/users/${users}"}>{users}</Nav.Link>
+                                <Nav.Link to="/">Home</Nav.Link>
+                                <Nav.Link to={"/users/${users}"}>{users}</Nav.Link>
                                 <Nav.Link onClick={onLoggedOut}>Sign-out</Nav.Link>
                             </Fragment>
                         }
                         {isAuth() &&
                             <Fragment>
-                                <Nav.Link href="/login">Sign-In</Nav.Link>
-                                <Nav.Link href="/register">Sign-Up</Nav.Link>
+                                <Nav.Link to="/login" activeStyle>Sign-In</Nav.Link>
+                                <Nav.Link to="/register" activeStyle>Sign-Up</Nav.Link>
                             </Fragment>
                         }
                     </Nav>
