@@ -3,43 +3,42 @@ import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
-import Container from 'react-bootstrap/Container';
+
 import './login-view.scss';
 
 export function LoginView(props) {
-    const [name, setName] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [nameErr, setNameErr] = useState('');
+    const [usernameErr, setUsernameErr] = useState('');
     const [passwordErr, setPasswordErr] = useState('');
 
     // validate user inputs
     const validate = () => {
         let isReq = true;
-        if (!name) {
-            setNameErr('Username Required');
+        if (!username) {
+            setUsernameErr('Username Required');
             isReq = false;
-        } else if (name.length < 2) {
-            setNameErr('Username must be 2 characters long');
+        } else if (username.length < 2) {
+            setUsernameErr('Username must be 2 characters long');
             isReq = false;
         }
         if (!password) {
             setPasswordErr('Password Required');
             isReq = false;
-        } else if (password.length < 6) {
-            setPassword('Password must be 6 characters long');
+        } else if (password.length < 3) {
+            setPassword('Password must be 3 characters long');
             isReq = false;
         }
-
         return isReq;
     }
-    const handleSubmit = (e) => {
+
+    const handleLogin = (e) => {
         e.preventDefault();
         const isReq = validate();
         if (isReq) {
-            /* Send a request to the server for authentication */
-            axios.post(' https://myflix-movies-heroku.herokuapp.com/login', {
-                name: name,
-                password: password
+            axios.post('https://myflix-movies-heroku.herokuapp.com/login', {
+                Username: username,
+                Password: password
             })
                 .then(response => {
                     const data = response.data;
@@ -48,39 +47,27 @@ export function LoginView(props) {
                 .catch(e => {
                     console.log('no such user')
                 });
-        }
+        };
     }
+
     return (
-        <Container id="login-form">
-            <Row className="justify-content-center">
-                <Col sm="10" md="8" lg="6">
-                    <Form>
-                        <Form.Group controlId="formName">
-                            <Form.Label>name:</Form.Label>
-                            <Form.Control type="text" onChange={e => setName(e.target.value)} />
-                            {nameErr && <p>{nameErr}</p>}
-                        </Form.Group>
-                        <Form.Group controlId="formPassword">
-                            <Form.Label>Password:</Form.Label>
-                            <Form.Control type="password" onChange={e => setPassword(e.target.value)} />
-                            {passwordErr && <p>{passwordErr}</p>}
-                        </Form.Group>
-                        <Row className="mt-3 justify-content-start">
-                            <Col sm="10" md="8" lg="6">
-                                <Button variant="primary" type="submit" onClick={handleSubmit}>
-                                    Login         </Button>
-                            </Col></Row>
-                        <p>Don't have an account yet?<a href="/register">Register here</a></p>
-                    </Form>
-                </Col></Row>
-        </Container>
-    );
+        <Form id="login-form">
+            <Form.Group controlId="formUsername">
+                <Form.Label>Username:</Form.Label>
+                <Form.Control type="text" placeholder="Enter username" value={username} onChange={e => setUsername(e.target.value)} />
+                {usernameErr && <p>{usernameErr}</p>}
+            </Form.Group>
+
+            <Form.Group controlId="formPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+                {passwordErr && <p>{passwordErr}</p>}
+            </Form.Group>
+            <Button variant="primary" type="submit" onClick={handleLogin}>
+                Login
+            </Button>
+
+        </Form>
+    )
 }
 
-LoginView.propTypes = {
-    user: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        password: PropTypes.string.isRequired
-    }),
-    onLoggedIn: PropTypes.func.isRequired,
-};
