@@ -11,17 +11,14 @@ export class MovieCard extends React.Component {
         const { movies } = this.props;
 
         return (
-            <Card id="movie-card">
-                <Link to={`/movies/${movies._id}`}>
-                    <Card.Img variant="top" src={movies.ImagePath} />
-                </Link>
+            <Card>
+                <Card.Img variant="top" src={movies.ImagePath} />
                 <Card.Body>
                     <Card.Title>{movies.Title}</Card.Title>
                     <Card.Text>{movies.Description}</Card.Text>
                     <Link to={`/movies/${movies._id}`}>
                         <Button variant="link">Open</Button>
                     </Link>
-                    <Button className="button ml-2" variant="outline-primary" size="sm" onClick={() => this.addToFavoriteList(movie._id)}>Add</Button>
                 </Card.Body>
             </Card>
         );
