@@ -1,5 +1,18 @@
 #login-form {
-    background-color: grey;
-    position: absolute;
-    top: 40%;
+    background-color: lightgrey;
+    width: 30%;
+    height: 100%;
+    margin-top: 15%;
+}
+
+Button {
+    background-color: blue;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    justify-content: center;
 }
